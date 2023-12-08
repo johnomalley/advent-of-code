@@ -13,10 +13,10 @@ import input from './input'
 // .664.598..
 // `.trim()
 
-// const lines = input.split('\n')
-const lines = input.split('\n').slice(90, 95)
+const lines = input.split('\n')
+// const lines = input.split('\n').slice(90, 95)
 
-const debug = true
+const debug = false
 if (debug) {
   lines.forEach(_ => {
     console.log(_)
