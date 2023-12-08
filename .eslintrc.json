@@ -1,0 +1,30 @@
+{
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "eslint-config-standard-with-typescript"
+  ],
+  "rules": {
+    "@typescript-eslint/strict-boolean-expressions": [
+      "off"
+    ],
+    "@typescript-eslint/explicit-function-return-type": [
+      "off"
+    ],
+    "@typescript-eslint/no-non-null-assertion": [
+      "off"
+    ]
+  },
+  "parserOptions": {
+    "project": ["./tsconfig.json", "./tsconfig.test.json"]
+  },
+  "overrides": [
+    {
+      "files": "test/**",
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}

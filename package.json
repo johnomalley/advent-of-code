@@ -1,0 +1,48 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "yearly code challenge",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run test && npm run lint && tsc",
+    "dev": "nodemon --watch src -e ts dev.js",
+    "lint": "eslint ./src ./test --fix --cache --cache-location .eslintcache/",
+    "test": "jest",
+    "test:dev": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/johnomalley/advent-of-code.git"
+  },
+  "keywords": [
+    "spades",
+    "typescript",
+    "node"
+  ],
+  "author": "John O'Malley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnomalley/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/johnomalley/advent-of-code#readme",
+  "devDependencies": {
+    "eslint": "~8.55.0",
+    "eslint-config-standard-with-typescript": "~40.0.0",
+    "ts-node": "~10.9.2",
+    "typescript": "~5.3.3"
+  },
+  "eslintConfig": {
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error"
+    },
+    "overrides": [
+      {
+        "files": "test/**",
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  }
+}
