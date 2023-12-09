@@ -1,5 +1,12 @@
 import input from './input'
 
+// const input = `
+// 1abc2
+// pqr3stu8vwx
+// a1b2c3d4e5f
+// treb7uchet
+// `.trim()
+
 const lines = input.split('\n')
 
 const digits = [
@@ -15,10 +22,12 @@ const digits = [
   'nine'
 ]
 
+const isDigit = (c: string): boolean => c >= '0' && c <= '9'
+
 const getDigits = (line: string, lineNumber: number): [number, number] => {
   const getDigitAt = (i: number): number | undefined => {
     const c = line.charAt(i)
-    if (c >= '0' && c <= '9') {
+    if (isDigit(c)) {
       return Number(c)
     } else {
       for (let j = 0; j < digits.length; j++) {
@@ -52,12 +61,40 @@ const getDigits = (line: string, lineNumber: number): [number, number] => {
   }
 }
 
-const getValue = (line: string, lineNumber: number): number => Number(getDigits(line, lineNumber).join(''))
+const getPartOneValue = (line: string, lineNumber: number): number => {
+  const digits: string[] = []
+  for (let i = 0; i < line.length; i++) {
+    if (isDigit(line[i])) {
+      digits.push(line[i])
+    }
+  }
+  if (digits.length > 0) {
+    return Number(`${digits[0]}${digits[digits.length - 1]}`)
+  } else {
+    throw new Error(`bad value - line ${lineNumber}: ${line}`)
+  }
+}
 
-let sum = 0
-lines.forEach((l, i) => {
-  sum += getValue(l, i + 1)
-})
+const partOne = () => {
+  let sum = 0
 
-console.log(`first line ${lines[0]}, final line ${lines[lines.length - 1]}`)
-console.log(sum)
+  lines.forEach((l, i) => {
+    sum += getPartOneValue(l, i + 1)
+  })
+
+  console.log(`Part 1: ${sum}`)
+}
+
+const partTwo = () => {
+  const getValue = (line: string, lineNumber: number): number => Number(getDigits(line, lineNumber).join(''))
+
+  let sum = 0
+  lines.forEach((l, i) => {
+    sum += getValue(l, i + 1)
+  })
+
+  console.log(`Part 2: ${sum}`)
+}
+
+partOne()
+partTwo()

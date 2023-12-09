@@ -14,9 +14,10 @@ import input from './input'
 // `.trim()
 
 const lines = input.split('\n')
-// const lines = input.split('\n').slice(90, 95)
+// const lines = input.split('\n').slice(68, 72)
 
 const debug = false
+
 if (debug) {
   lines.forEach(_ => {
     console.log(_)
@@ -25,10 +26,9 @@ if (debug) {
 
 const isSymbol = (c: string | undefined) => Boolean(c && (c < '0' || c > '9') && c !== '.')
 
+const isDigit = (c: string | undefined) => Boolean(c && c >= '0' && c <= '9')
+
 const getLineSum = (line: string, i: number): number => {
-  if (line.length !== 140) {
-    throw new Error(`! ${line.length}`)
-  }
   if (debug) {
     console.log(i)
     console.log('----')
@@ -52,9 +52,9 @@ const getLineSum = (line: string, i: number): number => {
   let sum = 0
 
   let numberString = ''
-  for (let i = 0; i < line.length; i++) {
+  for (let i = 0; i <= line.length; i++) {
     const c = line[i]
-    if (c >= '0' && c <= '9') {
+    if (isDigit(c)) {
       numberString = numberString + c
     } else if (numberString) {
       if (isAdjacentToSymbol(i - numberString.length, i)) {
@@ -78,4 +78,64 @@ const partOne = () => {
   console.log(`Part 1: ${sum}`)
 }
 
+const getNumberAt = (line: string, column: number): number | undefined => {
+  const c = line[column]
+  if (isDigit(c)) {
+    let start = column - 1
+    while (isDigit(line[start])) {
+      start--
+    }
+    let end = column + 1
+    while (isDigit(line[end])) {
+      end++
+    }
+    return Number(line.slice(start + 1, end))
+  }
+}
+
+const isNumber = (n: number | undefined): n is number => n !== undefined
+
+const getAdjacentPartNumbersOnLine = (line: string, column: number): number[] => {
+  const number = getNumberAt(line, column)
+  if (number !== undefined) {
+    return [number]
+  } else {
+    const left = getNumberAt(line, column - 1)
+    const right = getNumberAt(line, column + 1)
+    return [left, right].filter(isNumber)
+  }
+}
+
+const getAdjacentPartNumbers = (row: number, column: number): number[] => {
+  return [
+    ...getAdjacentPartNumbersOnLine(lines[row - 1] ?? '', column),
+    ...getAdjacentPartNumbersOnLine(lines[row + 1] ?? '', column),
+    getNumberAt(lines[row], column - 1),
+    getNumberAt(lines[row], column + 1)
+  ].filter(isNumber)
+}
+
+const getGearRatio = (row: number, column: number): number => {
+  const symbol = lines[row][column]
+  if (symbol === '*') {
+    const numbers = getAdjacentPartNumbers(row, column)
+    if (numbers.length === 2) {
+      return numbers[0] * numbers[1]
+    }
+  }
+  return 0
+}
+
+const partTwo = () => {
+  let sum = 0
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    for (let j = 0; j < line.length; j++) {
+      sum += getGearRatio(i, j)
+    }
+  }
+  console.log(`Part 2: ${sum}`)
+}
+
 partOne()
+partTwo()

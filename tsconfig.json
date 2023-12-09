@@ -10,7 +10,6 @@
     "resolveJsonModule": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "noUnusedParameters": true,
     "esModuleInterop": true
   },
   "include": [
