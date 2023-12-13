@@ -1,28 +1,24 @@
-import input from './input'
+import defaultInput from './input'
+import parseLines from '../../parseLines'
+import { type DayOfCode } from '../allDays'
 
-// const input = `
-// 467..114..
-// ...*......
-// ..35..633.
-// ......#...
-// 617*......
-// .....+.58.
-// ..592.....
-// ......755.
-// ...$.*....
-// .664.598..
-// `.trim()
-
-const lines = input.split('\n')
-// const lines = input.split('\n').slice(68, 72)
+const debugInput = `
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..
+`.trim()
 
 const debug = false
 
-if (debug) {
-  lines.forEach(_ => {
-    console.log(_)
-  })
-}
+const input = debug ? debugInput : defaultInput
+const lines = parseLines(input)
 
 const isSymbol = (c: string | undefined) => Boolean(c && (c < '0' || c > '9') && c !== '.')
 
@@ -73,10 +69,7 @@ const getLineSum = (line: string, i: number): number => {
   return sum
 }
 
-const partOne = () => {
-  const sum = lines.map(getLineSum).reduce((a, b) => a + b)
-  console.log(`Part 1: ${sum}`)
-}
+const partOne = () => lines.map(getLineSum).reduce((a, b) => a + b)
 
 const getNumberAt = (line: string, column: number): number | undefined => {
   const c = line[column]
@@ -134,8 +127,9 @@ const partTwo = () => {
       sum += getGearRatio(i, j)
     }
   }
-  console.log(`Part 2: ${sum}`)
+  return sum
 }
 
-partOne()
-partTwo()
+const dayOfCode: DayOfCode = { partOne, partTwo }
+
+export default dayOfCode

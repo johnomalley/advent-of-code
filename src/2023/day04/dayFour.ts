@@ -1,17 +1,23 @@
-import input from './input'
+import defaultInput from './input'
+import parseLines from '../../parseLines'
+import { type DayOfCode } from '../allDays'
 
-// const input = `
-// Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
-// Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
-// Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
-// Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
-// Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
-// Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
-// `.trim()
+const debugInput = `
+Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
+Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
+Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
+Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
+Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
+Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
+`.trim()
+
+const debug = false
+
+const input = debug ? debugInput : defaultInput
 
 const cardRegex = /^Card\s+\d+: (.*)$/
 
-const lines = input.split('\n')
+const lines = parseLines(input)
 
 const parseNumbers = (input: string) => input.split(/\s/).map(_ => _.trim()).filter(Boolean).map(Number)
 
@@ -44,12 +50,9 @@ const getLineScore = (line: string, lineNumber: number): number => {
   return count < 2 ? count : Math.pow(2, count - 1)
 }
 
-const partOne = () => {
-  const sum = lines
-    .map((line, i) => getLineScore(line.trim(), i + 1))
-    .reduce((a, b) => a + b)
-  console.log(`Part 1: ${sum}`)
-}
+const partOne = () => lines
+  .map((line, i) => getLineScore(line.trim(), i + 1))
+  .reduce((a, b) => a + b)
 
 const partTwo = () => {
   const cardCounts = lines.map(_ => 1)
@@ -66,10 +69,9 @@ const partTwo = () => {
     }
   })
 
-  const total = cardCounts.reduce((a, b) => a + b)
-
-  console.log(`Part 2: ${total}`)
+  return cardCounts.reduce((a, b) => a + b)
 }
 
-partOne()
-partTwo()
+const dayOfCode: DayOfCode = { partOne, partTwo }
+
+export default dayOfCode

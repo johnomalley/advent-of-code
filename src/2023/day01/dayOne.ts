@@ -1,13 +1,19 @@
-import input from './input'
+import defaultInput from './input'
+import parseLines from '../../parseLines'
+import { type DayOfCode } from '../allDays'
 
-// const input = `
-// 1abc2
-// pqr3stu8vwx
-// a1b2c3d4e5f
-// treb7uchet
-// `.trim()
+const debugInput = `
+1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet
+`.trim()
 
-const lines = input.split('\n')
+const debug = false
+
+const input = debug ? debugInput : defaultInput
+
+const lines = parseLines(input)
 
 const digits = [
   'zero',
@@ -82,7 +88,7 @@ const partOne = () => {
     sum += getPartOneValue(l, i + 1)
   })
 
-  console.log(`Part 1: ${sum}`)
+  return sum
 }
 
 const partTwo = () => {
@@ -92,9 +98,9 @@ const partTwo = () => {
   lines.forEach((l, i) => {
     sum += getValue(l, i + 1)
   })
-
-  console.log(`Part 2: ${sum}`)
+  return sum
 }
 
-partOne()
-partTwo()
+const dayOfCode: DayOfCode = { partOne, partTwo }
+
+export default dayOfCode

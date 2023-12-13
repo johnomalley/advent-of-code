@@ -1,4 +1,4 @@
-const input = `
+export default `
 shrzvdcghblt21
 sixdddkcqjdnzzrgfourxjtwosevenhg9
 threevt1onegxgvc9flk
@@ -1000,5 +1000,3 @@ four3threeonehbfhttgn39sqpctngqmzkhttn
 rphtbkncs4nznsix
 6three2sixsix9eightfour
 `.trim()
-
-export default input

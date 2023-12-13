@@ -1,4 +1,6 @@
+import parseLines from '../../parseLines'
 import input from './input'
+import { type DayOfCode } from '../allDays'
 
 type Counts = Readonly<{
   red: number
@@ -60,7 +62,7 @@ const parseGame = (line: string, lineNumber: number): Game => {
   }
 }
 
-const games = input.split('\n')
+const games = parseLines(input)
   .map((line, i) => parseGame(line.trim(), i + 1))
 
 const target: Counts = {
@@ -74,11 +76,7 @@ const isPossible = ({ draws }: Game) =>
     red <= target.red && green <= target.green && blue <= target.blue
   )
 
-const partOne = () => {
-  const sum = games.filter(isPossible).map(_ => _.id).reduce((a, b) => a + b)
-
-  console.log(`Part 1: ${sum}`)
-}
+const partOne = () => games.filter(isPossible).map(_ => _.id).reduce((a, b) => a + b)
 
 const getPowerOfMinimum = (game: Game) => {
   let { red, green, blue } = game.draws[0] ?? emptyCounts
@@ -90,11 +88,8 @@ const getPowerOfMinimum = (game: Game) => {
   return red * green * blue
 }
 
-const partTwo = () => {
-  const sum = games.map(getPowerOfMinimum).reduce((a, b) => a + b)
+const partTwo = () => games.map(getPowerOfMinimum).reduce((a, b) => a + b)
 
-  console.log(`Part 2: ${sum}`)
-}
+const dayOfCode: DayOfCode = { partOne, partTwo }
 
-partOne()
-partTwo()
+export default dayOfCode

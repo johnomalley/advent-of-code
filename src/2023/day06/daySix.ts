@@ -1,8 +1,15 @@
-import input from './input'
-// const input = `
-// Time:      7  15   30
-// Distance:  9  40  200
-// `.trim()
+import defaultInput from './input'
+import parseLines from '../../parseLines'
+import { type DayOfCode } from '../allDays'
+
+const debugInput = `
+Time:      7  15   30
+Distance:  9  40  200
+`.trim()
+
+const debug = false
+
+const input = debug ? debugInput : defaultInput
 
 const timeRegex = /^Time:\s+(.*)$/
 const distanceRegex = /^Distance:\s+(.*)$/
@@ -24,7 +31,7 @@ const parseNumbers = (regex: RegExp, input: string): number[] => {
 }
 
 const parseRaces = (): readonly Race[] => {
-  const lines = input.split('\n')
+  const lines = parseLines(input)
   const times = parseNumbers(timeRegex, lines[0])
   const distances = parseNumbers(distanceRegex, lines[1])
   if (times.length > 0 && times.length === distances.length) {
@@ -75,7 +82,7 @@ const partOne = () => {
   races.forEach(race => {
     result *= getNumberOfWaysToBeatRecord(race)
   })
-  console.log(`Part 1: ${result}`)
+  return result
 }
 
 const partTwo = () => {
@@ -83,9 +90,9 @@ const partTwo = () => {
     time: Number(races.map(_ => _.time).join('')),
     distance: Number(races.map(_ => _.distance).join(''))
   }
-  const result = getNumberOfWaysToBeatRecord(longRace)
-  console.log(`Part 2: ${result}`)
+  return getNumberOfWaysToBeatRecord(longRace)
 }
 
-partOne()
-partTwo()
+const dayOfCode: DayOfCode = { partOne, partTwo }
+
+export default dayOfCode
