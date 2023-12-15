@@ -147,6 +147,7 @@ const partTwo = () => {
   const southMatrix = tiltSouth(grid)
   const eastMatrix = tiltEast(grid)
   let first = true
+
   const cycle = (i: number): CycleRun => {
     const show = first && debug
     first = false
