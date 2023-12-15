@@ -199,7 +199,7 @@ const partTwo = () => {
       console.log(`run ${i + 1}: ${run.result}`)
     }
     if (index < 0) {
-      // save result and a snapshot of the grid
+      // save result and a hash of the grid
       runs.push(run)
     } else {
       // repeats every N times
