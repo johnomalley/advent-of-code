@@ -11,7 +11,7 @@ const day = Number(args[0])
 if (Number.isInteger(day) && day > 0 && day <= allDays.length) {
   console.log(`Day ${day}`)
   console.log('*****' + (day < 10 ? '' : '*'))
-  const { partOne, partTwo } = allDays[day]
+  const { partOne, partTwo } = allDays[day - 1]
   console.log(`Part 1: ${partOne()}`)
   console.log(`Part 2: ${partTwo()}`)
   process.exit(0)
