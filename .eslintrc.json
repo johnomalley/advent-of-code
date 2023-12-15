@@ -5,6 +5,7 @@
   "extends": [
     "eslint-config-standard-with-typescript"
   ],
+  "plugins": ["disable-autofix"],
   "rules": {
     "@typescript-eslint/strict-boolean-expressions": [
       "off"
@@ -12,9 +13,9 @@
     "@typescript-eslint/explicit-function-return-type": [
       "off"
     ],
-    "@typescript-eslint/no-non-null-assertion": [
-      "off"
-    ]
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "prefer-const": "off",
+    "disable-autofix/prefer-const": "error"
   },
   "parserOptions": {
     "project": ["./tsconfig.json"]
