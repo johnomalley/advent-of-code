@@ -13,6 +13,7 @@ import dayTwelve from './day12/dayTwelve'
 import dayThirteen from './day13/dayThirteen'
 import dayFourteen from './day14/dayFourteen'
 import dayFifteen from './day15/dayFifteen'
+import daySixteen from './day16/daySixteen'
 
 export type DayOfCode = Readonly<{
   partOne: () => number
@@ -34,7 +35,8 @@ const allDays: readonly DayOfCode[] = [
   dayTwelve,
   dayThirteen,
   dayFourteen,
-  dayFifteen
+  dayFifteen,
+  daySixteen
 ]
 
 export default allDays
